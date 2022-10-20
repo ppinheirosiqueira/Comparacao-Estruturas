@@ -1,0 +1,113 @@
+Menu:
+
+	1- Criar Arquivos
+		Criar arquivos de float - tamanho 500, 5000, 50000, 500000
+		Criar arquivo de float - tamanho 10000 para a leitura (precisa conter e não conter valores dos acima)
+
+	2 - Binária normal
+		x.1 - Escolher Arquivo que será usado
+		
+		x.2 - Rodas as seguintes ações
+
+			Começar a contar tempo
+			Gerar árvore binária com cada elemento de cada arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Procurar cada elemento do outro arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Retirar cada elemento da árvore
+			Terminar de contar tempo
+	
+	3 - AVL
+		x.1 - Escolher Arquivo que será usado
+		
+		x.2 - Rodas as seguintes ações
+
+			Começar a contar tempo
+			Gerar árvore AVL com cada elemento de cada arquivo
+			Terminar de contar tempo
+
+			Começar a contar tempo
+			Procurar cada elemento do outro arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Retirar cada elemento da árvore
+			Terminar de contar tempo
+
+	4 - Red Black
+		x.1 - Escolher Arquivo que será usado
+		
+		x.2 - Rodas as seguintes ações
+
+			Começar a contar tempo
+			Gerar árvore red black com cada elemento de cada arquivo
+			Terminar de contar tempo
+
+			Começar a contar tempo
+			Procurar cada elemento do outro arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Retirar cada elemento da árvore
+			Terminar de contar tempo
+			
+	5 - Vector
+		x.1 - Escolher Arquivo que será usado
+		
+		x.2 - Rodas as seguintes ações
+
+			Começar a contar tempo
+			Gerar vector com cada elemento de cada arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Ordenar o vetor
+			Terminar de contar tempo
+
+			Começar a contar tempo
+			Procurar cada elemento do outro arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Retirar cada elemento do vector
+			Terminar de contar tempo
+
+	6 - Map
+		x.1 - Escolher Arquivo que será usado
+		
+		x.2 - Rodas as seguintes ações
+
+			Começar a contar tempo
+			Gerar map com cada elemento de cada arquivo
+			Terminar de contar tempo
+
+			Começar a contar tempo
+			Procurar cada elemento do outro arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Retirar cada elemento do map
+			Terminar de contar tempo
+
+	7 - Unordered_map
+		x.1 - Escolher Arquivo que será usado
+		
+		x.2 - Rodas as seguintes ações
+
+			Começar a contar tempo
+			Gerar unorder_map com cada elemento de cada arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Procurar cada elemento do outro arquivo
+			Terminar de contar tempo
+			
+			Começar a contar tempo
+			Retirar cada elemento do unordered map
+			Terminar de contar tempo
+		
+
