@@ -55,22 +55,15 @@ void removeTree(Tree **t, Record r){
   if (r.key < (*t)->reg.key){ removeTree(&(*t)->esq, r); return; }
   if (r.key > (*t)->reg.key){ removeTree(&(*t)->dir, r); return; }
   
-  //cout << r.key << "\n";
-
   if ((*t)->dir == nullptr){
  		aux = *t;  
  		*t = (*t)->esq;
-    //cout << "Caso 1\n";
    	delete aux;
-    //cout << "Caso 1 completo\n";
    	return;
  	}
 
- 	if ((*t)->esq != nullptr)
-  {  //cout << "Caso 2\n"; 
-  antecessor(&(*t)->esq, *t); return; }
+ 	if ((*t)->esq != nullptr){antecessor(&(*t)->esq, *t); return; }
 
-  //cout << "Caso 3\n";
  	aux = *t;  
  	*t = (*t)->dir;
  	delete aux;

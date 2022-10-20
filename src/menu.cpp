@@ -159,10 +159,10 @@ int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, vector<float> v, map<fl
 						NF++;
 					}
 					else{						
-						//cout << aux->reg.key << "\n";
 						(*vp).push_back(*it);
 					}
-				}	
+				}
+									
 			}
 			break;
 		case 3:
@@ -202,15 +202,18 @@ int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, vector<float> v, map<fl
 		case 5:
 			{
 				// Vector
+				Tree* auxVector = CreateTree();
 				for (std::vector<float>::iterator it= v10k.begin(); it!= v10k.end(); ++it){
-					int aux = pesquisarVector(v,*it);
-					if (aux != -1){
-						(*vp).push_back(aux);
+					Record r;
+					r.key = pesquisarVector(v,*it);
+					if (r.key != -1){
+						insertTree(&auxVector,r);
 					}
 					else{
 						NF++;
 					}
 				}
+				central(auxVector,vp);
 			}
 			break;
 		case 6:
@@ -270,10 +273,8 @@ void ExcluirDaEstrutura(int escolhaEstrutura, Tree** t, vector<float>* v, map<fl
 			break;
 		case 5:
 			{
-				int aux = 0;
-				for (std::vector<float>::iterator it= vp.begin(); it!= vp.end(); ++it){
-					(*v).erase( (*v).begin() + *it + aux , (*v).begin() + *it + aux + 1 );
-					aux--;
+				for (std::vector<float>::iterator it = vp.end()-1; it!= vp.begin()-1; --it){ 
+					(*v).erase( (*v).begin() + *it, (*v).begin() + *it);
 				}
 			}
 			break;

@@ -37,6 +37,8 @@ Elabore um relatório detalhando a implementação dessas estruturas, funcioname
 
 <p align=justify>Para sua busca foi utilizada a Binary Search, padrão por ser a melhor busca possível para vetores ordenados, estando em O(log<sub>2</sub><sup>n</sup>). As posições dos números encontrados foram salvos em um vetor que será utilizado posteriormente para a exclusão dos elementos deste vector.</p>
 
+Falar que por melhor que seja, daria problema se for eliminar milhões de dados por salvar milhões de posições.
+
 ### Map
 
 ### Unordered Map
