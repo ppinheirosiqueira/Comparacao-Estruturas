@@ -12,7 +12,7 @@
 #include "rb.hpp" //Importando para a árvore RB
 
 vector<float> CriarArquivos();
-void CriarEstrutura(int escolhaArquivo, int escolhaEstrutura, Tree** t, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um);
+void CriarEstrutura(int escolhaArquivo, int escolhaEstrutura, Tree** t, Tree** tRB, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um);
 bool exists10k (string name);
 vector<float> lerPesquisa();
 

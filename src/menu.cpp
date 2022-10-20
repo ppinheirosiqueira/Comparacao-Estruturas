@@ -13,10 +13,11 @@ void menu(int escolhaEstrutura, int* escolhaArq, vector<float> v10k){
 	int auxMenu = 0;
 
 	while (auxMenu != 3){
+		printMenuEstrutura(escolhaEstrutura);
 		cout << "Escolha entre as opções abaixo: \n\n";
 		cout << "1 - Escolher qual arquivo será lido\n";
 		cout << "2 - Rodar ";
-		printArvore(escolhaEstrutura);
+		printEstrutura(escolhaEstrutura);
 		printEscolha((*escolhaArq));
 		cout << "3 - Sair\n";
 		cin >> auxMenu;
@@ -30,6 +31,8 @@ void menu(int escolhaEstrutura, int* escolhaArq, vector<float> v10k){
 				{ // Pela internet, quando quero uma variável em um case do swith, colocar os colchetes impossibilita possíveis erros onde a variável vai para outros cases do switch
 
 				Tree *raiz = CreateTree();
+				Tree *raizRB;
+				inicializaTree(&raizRB);
 				vector<float> v;
 				unordered_map<float, float> um;
 				map<float,float> m;
@@ -37,12 +40,11 @@ void menu(int escolhaEstrutura, int* escolhaArq, vector<float> v10k){
 				int numNF; // Numero de pesquisas Not Found
 
 				vector<float> vp; // Posições dos floats ou os próprios floats em que foram encontrados nas estruturas
-				vector<Tree*> vpt; // Nós das árvores que foram encontradas nas estruturas
 
 				// Criando a estrutura
 				cout << "Criando Estrutura...\n";
 				chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-				CriarEstrutura((*escolhaArq),escolhaEstrutura,&raiz,&v,&m,&um);
+				CriarEstrutura((*escolhaArq),escolhaEstrutura,&raiz,&raizRB,&v,&m,&um);
 				chrono::steady_clock::time_point end = chrono::steady_clock::now();
 				cout << "Tempo criando = " << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]\n\n";
 
@@ -51,7 +53,7 @@ void menu(int escolhaEstrutura, int* escolhaArq, vector<float> v10k){
 				// Pesquisando na estrutura
 				cout << "Pesquisando na Estrutura...\n";
 				begin = chrono::steady_clock::now();
-				numNF = PesquisarNaEstrutura(escolhaEstrutura,&raiz,v,m,um,&vpt,&vp,v10k);
+				numNF = PesquisarNaEstrutura(escolhaEstrutura,&raiz,&raizRB,v,m,um,&vp,v10k);
 				end = chrono::steady_clock::now();
 				cout << "Tempo pesquisando = " << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]\n";
 				cout << "Número de elementos não encontrados: " << numNF << "\n\n";
@@ -59,7 +61,7 @@ void menu(int escolhaEstrutura, int* escolhaArq, vector<float> v10k){
 				// Excluindo da estrutura
 				cout << "Excluindo na Estrutura...\n";
 				begin = chrono::steady_clock::now();
-				ExcluirDaEstrutura(escolhaEstrutura,&raiz,&v,&m,&um,vpt, vp);
+				ExcluirDaEstrutura(escolhaEstrutura,&raiz,&raizRB, &v,&m,&um,vp);
 				end = chrono::steady_clock::now();
 				cout << "Tempo excluindo = " << chrono::duration_cast<chrono::microseconds>(end - begin).count() << "[µs]\n";
 				cout << "Elementos excluidos com sucesso\n\n";
@@ -116,7 +118,44 @@ void printEscolha(int escolha){
 	}
 }
 
-void printArvore(int option){
+void printMenuEstrutura(int option){
+	switch(option){
+		case 2:
+			cout << "=============================\n";
+			cout << "       ÁRVORE BINÁRIA        \n";
+			cout << "=============================\n\n";
+			break;
+		case 3:
+			cout << "=============================\n";
+			cout << "         ÁRVORE AVL          \n";
+			cout << "=============================\n\n";
+			break;
+		case 4:
+			cout << "=============================\n";
+			cout << "       ÁRVORE REDBLACK       \n";
+			cout << "=============================\n\n";
+			break;
+		case 5:
+			cout << "=============================\n";
+			cout << "           VECTOR            \n";
+			cout << "=============================\n\n";
+			break;
+		case 6:
+			cout << "=============================\n";
+			cout << "             MAP             \n";
+			cout << "=============================\n\n";
+			break;
+		case 7:
+			cout << "=============================\n";
+			cout << "        UNORDERED MAP        \n";
+			cout << "=============================\n\n";
+			break;
+		default:
+			break;
+	}
+}
+
+void printEstrutura(int option){
 	switch(option){
 		case 2:
 			cout << "a árvore binária";
@@ -142,7 +181,7 @@ void printArvore(int option){
 	cout << " com o arquivo ";
 }
 
-int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, vector<float> v, map<float, float> m, unordered_map<float, float> um, vector<Tree*>* vpt, vector<float>* vp, vector<float> v10k){
+int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, Tree** tRB, vector<float> v, map<float, float> m, unordered_map<float, float> um, vector<float>* vp, vector<float> v10k){
 	ifstream myfile;
 	int NF = 0; // Not Found
 	
@@ -189,12 +228,12 @@ int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, vector<float> v, map<fl
 					Record r;
 					r.key = *it;
 					Tree* aux = CreateTree();
-					pesquisa(&(*t),&aux,r);
+					pesquisa(&(*tRB),&aux,r);
 					if (aux == nullptr){
 						NF++;
 					}
 					else{
-						(*vpt).push_back(aux);
+						(*vp).push_back(*it);
 					}
 				}	
 			}
@@ -250,7 +289,7 @@ int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, vector<float> v, map<fl
 	return NF;
 }
 
-void ExcluirDaEstrutura(int escolhaEstrutura, Tree** t, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um, vector<Tree*> vpt, vector<float> vp){
+void ExcluirDaEstrutura(int escolhaEstrutura, Tree** t, Tree** tRB, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um, vector<float> vp){
 	switch(escolhaEstrutura){
 		case 2:
 			for (std::vector<float>::iterator it= vp.begin(); it!= vp.end(); ++it){
@@ -267,14 +306,16 @@ void ExcluirDaEstrutura(int escolhaEstrutura, Tree** t, vector<float>* v, map<fl
 			}
 			break;
 		case 4:
-			for (std::vector<Tree*>::iterator it= vpt.begin(); it!= vpt.end(); ++it){
-				removeTreeRB(t, *it);
+			for (std::vector<float>::iterator it= vp.begin(); it!= vp.end(); ++it){
+				Record r;
+				r.key = *it;
+				search_delete(tRB, *tRB, r);
 			}
 			break;
 		case 5:
 			{
 				for (std::vector<float>::iterator it = vp.end()-1; it!= vp.begin()-1; --it){ 
-					(*v).erase( (*v).begin() + *it, (*v).begin() + *it);
+					(*v).erase( (*v).begin() + *it, (*v).begin() + *it + 1);
 				}
 			}
 			break;

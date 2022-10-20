@@ -1,20 +1,27 @@
-#ifndef RB_H 
-#define RB_H
+#ifndef RB_HPP
+#define RB_HPP
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
 #include "tree.hpp"
 
-void rotacaoSimplesEsquerda(Tree **raiz, Tree *child);
-void rotacaoSimplesDireita(Tree **raiz, Tree *child);
+void inicializaTree(Tree **root);
 
-void insertFixUp(Tree **raiz, Tree *child);
-void insertTreeRB(Tree **t, Tree **pai, Tree **raiz, Record r);
+Tree *tree_successor(Tree *aux_succ);
 
-// Remove da Árvore RedBlack
-void removeTreeRB(Tree **t, Tree* z);
-void RB_Transplant(Tree **t, Tree* u, Tree* v);
-Tree* Tree_Minimum(Tree* t);
-void RB_Delete_Fixup(Tree** t, Tree *x);
+void rotacaoEsquerda(Tree **root, Tree *item);
+void rotacaoDireita(Tree **root, Tree *item);
+void fix_insert(Tree **root, Tree *aux);
+void insertItemRB(Tree **root, Record r);
+
+void rb_insert(Tree **root, Tree *x,Tree *y,Tree *temp);
+
+void RB_delete(Tree **root, Tree* z,Tree* y,Tree *x);
+void RB_delete_fix(Tree **root, Tree *x,Tree *w);
+void RB_transplant(Tree **root, Tree *aux,Tree *auxchild);
+
+void search_delete(Tree **root, Tree *aux, Record z);
+
+int check(Tree *aux,double z,int chk);
 #endif

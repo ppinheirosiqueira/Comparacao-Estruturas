@@ -3,11 +3,11 @@
 vector<float> CriarArquivos(){	
 	FILE *MyFile500, *MyFile5000, *MyFile50000, *MyFile500000, 	*MyFile10000;
 
-	MyFile500    = fopen("500.txt", "w");
-	MyFile5000   = fopen("5000.txt", "w");
-	MyFile50000  = fopen("50000.txt", "w");
-	MyFile500000 = fopen("500000.txt", "w");
-	MyFile10000  = fopen("10000.txt", "w");
+	MyFile500    = fopen("files/500.txt", "w");
+	MyFile5000   = fopen("files/5000.txt", "w");
+	MyFile50000  = fopen("files/50000.txt", "w");
+	MyFile500000 = fopen("files/500000.txt", "w");
+	MyFile10000  = fopen("files/10000.txt", "w");
 	
 	int i = 0;
 	int auxR = 350 + ( rand() % ( 101 ) ); // Gerar número randomico entre 350 e 450
@@ -107,20 +107,20 @@ vector<float> CriarArquivos(){
 	return lerPesquisa();
 }
 
-void CriarEstrutura(int escolhaArquivo, int escolhaEstrutura, Tree** t, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um){
+void CriarEstrutura(int escolhaArquivo, int escolhaEstrutura, Tree** t, Tree** tRB, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um){
 	string nome;
 	switch (escolhaArquivo){
 	case 1:
-		nome = "500.txt";
+		nome = "files/500.txt";
 		break;
 	case 2:
-		nome = "5000.txt";
+		nome = "files/5000.txt";
 		break;
 	case 3:
-		nome = "50000.txt";
+		nome = "files/50000.txt";
 		break;
 	case 4:
-		nome = "500000.txt";
+		nome = "files/500000.txt";
 		break;
 	default:
 		break;
@@ -161,7 +161,7 @@ void CriarEstrutura(int escolhaArquivo, int escolhaEstrutura, Tree** t, vector<f
 						// RedBlack
 						Record r;
 						r.key = stof(linha);
-						insertTreeRB(&(*t),&(*t),&(*t),r);
+						insertItemRB(tRB, r);
 						break;
 					}
 				case 6:
@@ -198,7 +198,7 @@ vector<float> lerPesquisa(){
 	float auxLinha;
 
 	// Abrir Arquivo
-	myfile.open("10000.txt");
+	myfile.open("files/10000.txt");
 
 	if (myfile.is_open()){
 		while (!myfile.eof()){

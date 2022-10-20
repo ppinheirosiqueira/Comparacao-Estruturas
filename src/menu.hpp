@@ -15,9 +15,10 @@ void MenuAux(bool check, int escolhaEstrutura, int* escolhaArq, vector<float> v1
 void menu(int escolhaEstrutura, int* escolhaArq, vector<float> v10k);
 int escolhaArquivo();
 void printEscolha(int escolha);
-void printArvore(int option);
-int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, vector<float> v, map<float, float> m, unordered_map<float, float> um, vector<Tree*>* vpt, vector<float>* vp, vector<float> v10k);
-void ExcluirDaEstrutura(int escolhaEstrutura, Tree** t, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um, vector<Tree*> vpt, vector<float> vp);
-void mostrandoEstrutura(int escolhaEstrutura, Tree* raiz, vector<float> v, map<float,float> m, unordered_map<float, float> um);
+void printEstrutura(int option);
+void printMenuEstrutura(int option);
+int PesquisarNaEstrutura(int escolhaEstrutura, Tree** t, Tree** tRB, vector<float> v, map<float, float> m, unordered_map<float, float> um, vector<float>* vp, vector<float> v10k);
+void ExcluirDaEstrutura(int escolhaEstrutura, Tree** t, Tree** tRB, vector<float>* v, map<float, float>* m, unordered_map<float, float>* um, vector<float> vp);
+void mostrandoEstrutura(int escolhaEstrutura, Tree* raiz, Tree** tRB, vector<float> v, map<float,float> m, unordered_map<float, float> um);
 
 #endif

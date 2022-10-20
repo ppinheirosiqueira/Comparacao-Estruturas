@@ -9,16 +9,19 @@ int main(){
 	bool check10k;
 	vector<float> v10k;
 
-	check10k = exists10k ("10000.txt");
+	check10k = exists10k ("files/10000.txt");
 	if (!check10k){
-		cout << "\nVocê não possui um arquivo de pesquisa preparado, por favor, crie um na primeira opção antes de tentar rodar o resto\n";
+		cout << "\nVocê não possui um arquivo de pesquisa preparado, por favor, crie um na primeira opção antes de tentar rodar o resto\n\n";
 	}
 	else{
 		v10k = lerPesquisa();
-		cout << "\nArquivo de pesquisa lido e pronto para uso\n";
+		cout << "\nArquivo de pesquisa lido e pronto para uso\n\n";
 	}
 
 	while (auxMenu != 9){
+		cout << "==============================\n";
+		cout << "   MENU - ESCOLHA ESTRUTURA   \n";
+		cout << "==============================\n\n";
 		cout << "Escolha entre as opções abaixo: \n\n";
 		cout << "1 - Criar novos arquivos para serem lidos (incluindo o de pesquisa)\n";
 		cout << "2 - Árvore Binária Normal\n";
@@ -35,7 +38,7 @@ int main(){
 		switch(auxMenu) {
 			case 1:
 				v10k = CriarArquivos();
-				check10k = exists10k ("10000.txt");
+				check10k = exists10k ("files/10000.txt");
 				cout << "\nArquivo de pesquisa lido e pronto para uso\n\n";
 				break;
 			case 2:
@@ -57,7 +60,7 @@ int main(){
 				MenuAux(check10k,7,&escolhaArq,v10k);
 				break;
 			case 8:
-				check10k = exists10k ("10000.txt");
+				check10k = exists10k ("files/10000.txt");
 				if (!check10k){
 					cout << "\nAinda não existe um arquivo 10000.txt em sua pasta\n";
 				}
