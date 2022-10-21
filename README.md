@@ -32,24 +32,24 @@ Elabore um relatório detalhando a implementação dessas estruturas, funcioname
 <p align=justify>Uma atenção especial foi dada ao arquivo de pesquisa, já é checado antes mesmo do usuário tomar qualquer ação se este arquivo existe, e caso exista, seus dados são passados para um vector que será utilizado durante as pesquisas realizadas. Caso este arquivo não exista ao ser iniciado o programa, não é sequer possível ir para o menu de teste da estrutura sem antes possuir esse arquivo.</p>
 
 ### Árvores
-<p align=justify>O importante para o exercício em questão era a comparação das estruturas, portanto o professor chegou a passar as estruturas básicas das [árvores binárias basicas](https://github.com/mpiress/basic_tree) e [árvores AVL](https://github.com/mpiress/avl_tree). A árvore RedBlack foi recolhida do [github do monitor da disciplina](https://github.com/danieldiv/comparacao-estrutura-arvore/blob/main/src/treeRB.c) ~~após muito apanhar e desistir de fazer por conta própria~~.</p>
+<p align=justify>O importante para o exercício em questão era a comparação das estruturas, portanto o professor chegou a passar as estruturas básicas das <a href="https://github.com/mpiress/basic_tree">árvores binárias basicas</a> e <a href="https://github.com/mpiress/avl_tree">árvores AVL(</a>. A árvore RedBlack foi recolhida do <a href="https://github.com/danieldiv/comparacao-estrutura-arvore/blob/main/src/treeRB.c">GitHub do monitor da disciplina</a> <del>após muito apanhar e desistir de fazer por conta própria</del>.</p>
 
 ### Vector
-<p align=justify>O Vector inicialmente foi feito com um quick sort para sua inserção, no entanto, por mais que o quick sort seja rápido, para as entradas maiores o seu tempo era simplesmente inviável. Portanto, a inserção no vector foi feita pela criação de uma árvore binária padrão e em seguida foi utilizado o método central para a inserção dos dados dessa árvore no vector. Assim, não só agilizando o processo, como também filtrando qualquer dado repetido que poderia existir.</p>
+<p align=justify>O Vector inicialmente foi feito com um quick sort para sua inserção, no entanto, por mais que o quick sort seja rápido, para as entradas maiores o seu tempo era simplesmente inviável, gastando tanto tempo que sequer pensar em comparar com as árvores já seria algo inviável por natureza. Portanto, a inserção no vector foi feita pela criação de uma árvore binária padrão e em seguida foi utilizado o método central para a inserção dos dados dessa árvore no vector. Assim, não só agilizando o processo, como também filtrando qualquer dado repetido que poderia existir. Deixando as comparações posteriores mais justas dado que o vector não terá que lidar com valores repetidos, igual todas as outras estruturas.</p>
 
-<p align=justify>Para sua busca foi utilizada a Binary Search, padrão por ser a melhor busca possível para vetores ordenados, estando em O(log<sub>2</sub><sup>n</sup>). As posições dos números encontrados foram salvos em um vetor que será utilizado posteriormente para a exclusão dos elementos deste vector.</p>
+<p align=justify>Para sua busca foi utilizada a Binary Search, padrão por ser a melhor busca possível para vetores ordenados, estando em O(log<sub>2</sub><sup>n</sup>). As posições dos números encontrados foram salvos em um vetor que será utilizado posteriormente para a exclusão dos elementos deste vector. Ou seja, o Vector será a única estrutura que não precisará pesquisar novamente os itens que deseja remover.</p>
 
-Falar que por melhor que seja, daria problema se for eliminar milhões de dados por salvar milhões de posições.
+### Map e Unordered Map
+<p align=justify>Não é necessário citar muito sobre essas duas estruturas além de que de acordo com o <a href="https://cplusplus.com/reference/map/map/">próprio site de documentação oficial do C++</a>, Maps são "tipícamente implementados como binary trees", porém sabemos mais especificamente que são árvores Red-Black. Enquanto os Unoredered Maps são utilizados Hash Tables, como também é citado no <a href="https://cplusplus.com/reference/unordered_map/unordered_map/">site de documentação oficial do C++</a>. Portanto, espera-se que a RedBlack e o Map tenham resultados parecidos.</p>
 
-### Map
-
-### Unordered Map
+### Pesquisa e Remoção
+<p align=justify>Como dito anteriormente, o Vector salvará as posições que estão contidos os elementos que precisará eliminar, o mesmo não pode ser feito para nenhuma das outras estruturas sem algo mais trabalhado, como salvar os iteradores ou algo do tipo. Porém, como a pesquisa já é realizada de qualquer forma, dois dados retornaram delas: o número de "não encontrados" nas pesquisas e um vetor de ponto flutuante, sendo este vetor os pontos flutuantes encontrados e que precisaram ser eliminados das outras estruturas. Assim, elas no mínimo não precisarão realizar pesquisas por elementos que já sabemos que não se encontram em sua estrutura.</p>
 
 ---
 ## Resultados Testes
-Foram executados baterias de testes em cada estrutura e para cada arquivo de entrada. Os testes foram feitos em um notebook que possui um i7-9750H, 8Gb de RAM, Windows 11 e está rodando o programa pelo Ubuntu via WSL. Essa bateria de testes consiste em 10 testes realizando o ciclo proposto no enunciado, onde são coletados os tempos de inserção nas estruturas, o tempo de pesquisa e o tempo de remoção.
+<p align=justify>Foram executados baterias de testes em cada estrutura e para cada arquivo de entrada. Os testes foram feitos em um notebook que possui um <a href="https://www.intel.com/content/www/us/en/products/sku/191045/intel-core-i79750h-processor-12m-cache-up-to-4-50-ghz/specifications.html">i7-9750H</a>, 8Gb de RAM, Windows 11 e está rodando o programa pelo Ubuntu via WSL. Essa bateria de testes consiste em 10 testes realizando o ciclo proposto no enunciado, onde são coletados os tempos de inserção nas estruturas, o tempo de pesquisa e o tempo de remoção.</p>
 
-Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos desvios padrões) e os gráficos destas tabelas, para mera visualização mais fácil se desejado.
+<p align=justify>Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos desvios padrões) e os gráficos destas tabelas, para mera visualização mais fácil se desejado. É necessário comentar que existem 3 gráficos em escala logaritmica graças a discrepância dos resultados.</p>
 
 ### Inserção
 
@@ -109,10 +109,10 @@ Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos
 </tbody>
 </table>
 
-<img src="imgs/500-insercao.png" width="400px"/>
-<img src="imgs/5000-insercao.png" width="400px"/>
-<img src="imgs/50000-insercao.png" width="400px"/>
-<img src="imgs/500000-insercao.png" width="400px"/>
+<p align=center><img src="imgs/500-insercao.png" width="600px"/>
+<img src="imgs/5000-insercao.png" width="600px"/>
+<img src="imgs/50000-insercao.png" width="600px"/>
+<img src="imgs/500000-insercao.png" width="600px"/></p>
 
 ### Pesquisa
 
@@ -172,10 +172,10 @@ Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos
 </tbody>
 </table>
 
-<img src="imgs/500-pesquisa.png" width="400px"/>
-<img src="imgs/5000-pesquisa.png" width="400px"/>
-<img src="imgs/50000-pesquisa.png" width="400px"/>
-<img src="imgs/500000-pesquisa.png" width="400px"/>
+<p align=center><img src="imgs/500-pesquisa.png" width="600px"/>
+<img src="imgs/5000-pesquisa.png" width="600px"/>
+<img src="imgs/50000-pesquisa.png" width="600px"/>
+<img src="imgs/500000-pesquisa.png" width="600px"/></p>
 
 ### Remoção
 <table class="tg">
@@ -234,12 +234,15 @@ Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos
 </tbody>
 </table>
 
-<img src="imgs/500-remocao.png" width="400px"/>
-<img src="imgs/5000-remocao.png" width="400px"/>
-<img src="imgs/50000-remocao.png" width="400px"/>
-<img src="imgs/500000-remocao.png" width="400px"/>
+<p align=center><img src="imgs/500-remocao.png" width="600px"/>
+<img src="imgs/5000-remocao.png" width="600px"/>
+<img src="imgs/50000-remocao.png" width="600px"/>
+<img src="imgs/500000-remocao.png" width="600px"/></p>
+
 ---
 ## Discussão
+
+<p align="justify">O primeiro ponto a ser analizado</p>
 
 ---
 
