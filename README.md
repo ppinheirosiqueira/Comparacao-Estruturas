@@ -37,7 +37,7 @@ Elabore um relatório detalhando a implementação dessas estruturas, funcioname
 ### Vector
 <p align=justify>O Vector inicialmente foi feito com um quick sort para sua inserção, no entanto, por mais que o quick sort seja rápido, para as entradas maiores o seu tempo era simplesmente inviável, gastando tanto tempo que sequer pensar em comparar com as árvores já seria algo inviável por natureza. Portanto, a inserção no vector foi feita pela criação de uma árvore binária padrão e em seguida foi utilizado o método central para a inserção dos dados dessa árvore no vector. Assim, não só agilizando o processo, como também filtrando qualquer dado repetido que poderia existir. Deixando as comparações posteriores mais justas dado que o vector não terá que lidar com valores repetidos, igual todas as outras estruturas.</p>
 
-<p align=justify>Para sua busca foi utilizada a Binary Search, padrão por ser a melhor busca possível para vetores ordenados, estando em O(log<sub>2</sub><sup>n</sup>). As posições dos números encontrados foram salvos em um vetor que será utilizado posteriormente para a exclusão dos elementos deste vector. Ou seja, o Vector será a única estrutura que não precisará pesquisar novamente os itens que deseja remover.</p>
+<p align=justify>Para sua busca foi utilizada a Binary Search, padrão por ser a melhor busca possível para vetores ordenados, estando em O(log<sub>2</sub><sup>n</sup>). As posições dos números encontrados foram salvas em um vetor que será utilizado posteriormente para a exclusão dos elementos deste vector. Ou seja, o Vector será a única estrutura que não precisará pesquisar novamente os itens que deseja remover.</p>
 
 ### Map e Unordered Map
 <p align=justify>Não é necessário citar muito sobre essas duas estruturas além de que de acordo com o <a href="https://cplusplus.com/reference/map/map/">próprio site de documentação oficial do C++</a>, Maps são "tipícamente implementados como binary trees", porém sabemos mais especificamente que são árvores Red-Black. Enquanto os Unoredered Maps são utilizados Hash Tables, como também é citado no <a href="https://cplusplus.com/reference/unordered_map/unordered_map/">site de documentação oficial do C++</a>. Portanto, espera-se que a RedBlack e o Map tenham resultados parecidos.</p>
@@ -47,9 +47,9 @@ Elabore um relatório detalhando a implementação dessas estruturas, funcioname
 
 ---
 ## Resultados Testes
-<p align=justify>Foram executados baterias de testes em cada estrutura e para cada arquivo de entrada. Os testes foram feitos em um notebook que possui um <a href="https://www.intel.com/content/www/us/en/products/sku/191045/intel-core-i79750h-processor-12m-cache-up-to-4-50-ghz/specifications.html">i7-9750H</a>, 8Gb de RAM, Windows 11 e está rodando o programa pelo Ubuntu via WSL. Essa bateria de testes consiste em 10 testes realizando o ciclo proposto no enunciado, onde são coletados os tempos de inserção nas estruturas, o tempo de pesquisa e o tempo de remoção.</p>
+<p align=justify>Foram executadas baterias de testes em cada estrutura e para cada arquivo de entrada. Os testes foram feitos em um notebook que possui um <a href="https://www.intel.com/content/www/us/en/products/sku/191045/intel-core-i79750h-processor-12m-cache-up-to-4-50-ghz/specifications.html">i7-9750H</a>, 8Gb de RAM, Windows 11 e está rodando o programa pelo Ubuntu via WSL. Essa bateria de testes consiste em 10 testes realizando o ciclo proposto no enunciado, onde são coletados os tempos de inserção nas estruturas, o tempo de pesquisa e o tempo de remoção.</p>
 
-<p align=justify>Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos desvios padrões) e os gráficos destas tabelas, para mera visualização mais fácil se desejado. É necessário comentar que existem 3 gráficos em escala logaritmica graças a discrepância dos resultados.</p>
+<p align=justify>Abaixo se encontram as tabelas com os tempos médios obtidos (e seus respectivos desvios padrões) e os gráficos destas tabelas, para mera visualização mais fácil se desejado. É necessário comentar que existem 3 gráficos em escala logarítmica graças a discrepância dos resultados.</p>
 
 ### Inserção
 
@@ -242,10 +242,53 @@ Elabore um relatório detalhando a implementação dessas estruturas, funcioname
 ---
 ## Discussão
 
-<p align="justify">O primeiro ponto a ser analizado</p>
+<p align="justify">O primeiro ponto a ser analizado foi a percepção de que todas as estruturas se tornaram menos impactadas por quaisquer processos que o computador estava fazendo enquanto se tornavam maiores. Para os arquivos menores, todas as estruturas testadas possuiam um desvio padrão alto em seus tempos, independente de qual ação estivessem realizando, próximos a 20%, e tornaram-se menores de 10% e até menores de 5% quando os arquivos testados eram de 50.000 ou 500.000 itens.</p>
+
+<p align="justify">Além disso, foi perceptível que ou a massa de dados testada auxiliava demais a árvore binária padrão, ou simplesmente 500.000 elementos não são o suficiente para ser perceptível a melhora que as outras árvores dão. Pois a árvore binária padrão simplesmente possui o melhor tempo em todas as etapas destes arquivos maiores, sendo que graças a alta variação que ocorria em arquivos menores, foi possível ver um tempo médio menor para a Inserção da árvore AVL do que a própria padrão, mostrando que realmente a estrutura estava influenciando muito menos do que qualquer processo no background que estava ocorrendo.</p>
+
+<p align="justify">Essa influência de processos externos fica ainda mais perceptível ao serem comparados os tempos de inserções da árvore Binária com o Vector, como demonstrado na figura abaixo.</p>
+
+<p align=center><img src="imgs/comparacao-binary-vector.png" width="600px"/></p>
+
+<p align="justify">A inserção do Vector foi feita criando-se uma árvore binária e depois lendo esta árvore binária, mesmo assim, na bateria de testes, o tempo de inserção do vector conseguiu ser menor do que o da própria árvore binária em todos os casos, sendo que a diferença na média foi de 2% no caso mais próximo e de incríveis 22% no caso mais distante.</p>
+
+<p align="justify">Apesar dos tempos de inserção muito minimizados graças a estratégia utilizada, fica claro que o Vector perde por muito na pesquisa e na remoção. Foi graças a essa estrutura de dados que os últimos dois gráficos de pesquisa e o último de remoção acabou indo para a forma logaritmica, pois não era sequer possível ver mais os dados das três árvores iniciais quando eram colocadas lado a lado com o valor do Vector.</p> 
+
+<p align="justify">Além disso, a pesquisa binária utilizada e as árvores possuem ambas O(log<sub>2</sub><sup>n</sup>) para pesquisa. Mesmo assim, por melhor que a busca binária seja, ela não se apresentou párea para a estrutura de uma árvore, e por mais que tenha eliminado o processo de pesquisa na remoção do vector, como esta estrutura é a única que precisa deslocar muitos de outros elementos (como mero exemplo, se fosse necessário eliminar o primeiro elemento do vector de 500.000 itens, precisaria se deslocar todos os outros 499.999 itens, por isso a remoção foi feita de trás para frente, para agilizar ainda mais o processo) após a exclusão de um único item seu, acaba tornando o processo muito mais caro do que os rebalanceamentos feitos na AVL e na RedBlack, principalmente quando se possui muitos itens. Uma alternativa possível seria a exclusão do ponto flutuante, mas não apagando em si a posição do Vector, porém isso iria de encontro com o que era feito nas outras estruturas e por isso simplesmente não foi feito, dado que o Vector já possuia regalias demais em comparação com as outras e mesmo assim não apresentava um resultado sequer comparável as demais.</p>
+
+<p align="justify">Com essa diferença gritante em performance, a única conclusão possível envolvendo Vector, é que só é uma estrutura útil quando for uma quantidade de dados pequena, pois para grandes quantidade de dados se torna simplesmente inviável.</p>
+
+<p align="justify">Focando então nas outras, como dito na implementação, um Map teoricamente é uma red black padrão do C++ e seus gráficos comparativos podem ser vistos abaixo:</p>
+
+<p align=center><img src="imgs/comparacao-rb-map-ins.png" width="600px"/></p>
+<p align=center><img src="imgs/comparacao-rb-map-pes.png" width="600px"/></p>
+<p align=center><img src="imgs/comparacao-rb-map-rem.png" width="600px"/></p>
+
+<p align="justify">A RedBlack padrão do C++, ou seja, o Map, possui uma performance para menores quantidades de dados acima da implementada neste trabalho na Inserção de dados. Porém, sua queda para maiores quantidades de dados é perceptível. A comparação entre as médias de ambas foi de 19.6% melhor quando comparados os 500 elementos, demontrando que a RedBlack implementada era muito mais lenta do que o Map, porém, a diferença foi de -13% quando comparados os 500.000 elementos, essa diferença foi de 19.6% para 12.8% com 5.000 elementos e para -7.85% para 50.000 elementos. Sendo que já foi dito que para as estruturas com poucos dados o simples background do computador rodando processos aleatórios provavelmente impactava mais do que a própria estrutura, se torna claro que não chega a ser absurdo declarar que a RedBlack implementada possui um rendimento melhor em geral que o Map do C++.</p>
+
+<p align="justify">Além da Inserção, foi perceptível que a RedBlack implementada possui melhores resultados para Pesquisa e Remoção em qualquer momento. A estrutura Map em C++ é útil graças a sua facilidade de implementação, mas está longe de ser tão boa quanto as estruturas implementadas diretamente pelo usuário.</p>
+
+<p align="justify">Agora, a análise final falará das três árvores mais o Unordered Map (Hash Table).</p>
+
+<p align=center><img src="imgs/comparacao-ins-4.png" width="600px"/></p>
+<p align=center><img src="imgs/comparacao-pes-4.png" width="600px"/></p>
+<p align=center><img src="imgs/comparacao-rem-4.png" width="600px"/></p>
+
+<p align="justify">É perceptível que o Unordered Map foi muito bem em comparação com as estruturas implementadas, inclusive, sendo a estrutura padrão que conseguiu ser melhor no tempo de inserção para qualquer quantidade de dados. Acabou perdendo a performance na pesquisa e continuou sendo superior/igualitário na remoção. Essa discrepância no resultado da pesquisa poderia ocorrer graças ao tamanho da Hash Table que pode ser implementada pelo Unordered Map e assim ao se pesquisar acabava caindo em muitos casos de colisões. No entanto, essa performance muito boa das árvores, junto do resultado prévio do vector na pesquisa, acabou demonstrando para o aluno que havia alguma informação sendo perdida.</p>
+
+<p align="justify">Após analisar melhor e pensar em possíveis razões para essa discrepância (além de colisões na Hash e um vector ser simplesmente pior sem razão), o aluno chegou a uma conclusão. Pela forma que os arquivos randômicos estão sendo formados neste trabalho, os elementos pesquisados provavelmente estão sempre próximos do topo da árvore gerada, tanto que não a toa, a árvore Binária padrão possui o menor tempo de pesquisa entre as 3 árvores implementadas mesmo não sendo balanceada de forma apropriada. A RedBlack que possui maior tolerância a árvores desbalanceadas acabou alterando menos a sua estrutura básica e por isso seu tempo de pesquisa também ficou menor quando comparada exclusivamente com a árvore AVL.</p> 
+
+<p align="justify">Assim, apesar de existir uma mudança na forma como a árvore se apresenta na AVL e na RedBlack, fica claro pelo desempenho quase igual em todos os tamanhos de estruturas, que o arquivo de Pesquisa feito não foi bem implementado, pois ele favorece as árvores, principalmente a binária, que nunca se altera com meras inserções de elementos. Esta analise gera alguns questionamento/pensamento, talvez seja por isso que o Vector, que possui uma busca binária com o mesmo O acabou se tornando pior, pois seus elementos estão ordenados de forma crescente, enquanto as árvores já estão sendo feitas de forma a serem favorecidas pelo arquivo de pesquisa. Isso acaba "invalidando" o resultado do Pesquisa do Vector pelo menos para ser comparado com as árvores, e talvez do próprio Unordered Map, dado que fica difícil comparar a pesquisa dessas estruturas com as das árvores sem se tornar algo injusto.</p>
+
+<p align="justify">Apesar da qualidade ruim do arquivo de pesquisa, é necessário notar que outras coisas continuam valendo. O resultado ruim da Remoção do Vector continua horrível, dado que mesmo tendo a posição que deveria eliminar conseguiu ser pior graças ao analisado anteriormente. Além de ser notável outra coisa interessante ao se saber que o arquivo de pesquisa não foi bem formulado, é que apesar de ter os elementos introduzidos na mesma ordem que as árvores implementadas, o Map consegue de alguma forma piorar muito seu desempenho em pesquisa/remoção mesmo sendo teoricamente favorecido pelo arquivo de pesquisa iguais as outras. Se tornando uma incógnita de como esta estrutura RedBlack sequer conseguiu realizar esta façanha.</p>
+
+<p align="justify">Para finalizar, com a descoberta do arquivo de pesquisa ruim, foi então analisado os tempos de pesquisa das duas estruturas que não se beneficiam deste tipo de arquivo. O Vector, que é ordenado logo na sua criação, e o Unordered Map, que teoricamente tem O(1).</p>
+
+<p align=center><img src="imgs/pes-vec-um.png" width="600px"/></p>
+
+<p align="justify">Como esperado em uma comparação de performance entre uma busca em O(log<sub>2</sub><sup>n</sup>) com uma busca idealmente em 1, o Unordered Map se provou muito superior em simplesmente todos os arquivos de entrada. A Hash implementada pelo C++ é grande e bem-feita o suficiente para garantir um tempo que começa em 58.6% menor e aumenta ainda mais a diferença com o passar do aumento do arquivo, indo para 79.8% quando comparados os tempos do arquivo de 500.000. Isso é esperado dado que o tempo de busca do vector depende de n, enquanto o da Hash depende do número de colisões, que em contrapartida depende do tamanho da Hash, sendo idealmente um tamanho infinito e o número de colisões igual a 0. Ficando assim a dúvida sobre qual seria a comparação entre a Hash e as árvores caso o arquivo de pesquisa fosse bem feito, pois as árvores teoricamente possuem o mesmo caso médio que a busca binária em um vetor ordenado.</p>
 
 ---
-
 ## Compilação e Execução
 
 <p align="justify">O exercício disponibilizado possui um arquivo Makefile cedido pelo professor que realiza todo o procedimento de compilação e execução. Para tanto, temos as seguintes diretrizes de execução:</p>
